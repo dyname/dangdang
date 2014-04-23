@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="cart" extends="dangDefault" namespace="/cart">
+		<!-- 点击购买按钮 -->
+		
+		<action name="order" class="com.wangxin.dang.actions.cart.OrderAction">
+			<result type="json">
+				<param name="root">orderOk</param>
+			</result>
+		</action>
+		
+		<action name="cartList" class="com.wangxin.dang.actions.cart.CartListAction">
+			<result name="success">/cart/cart_list.jsp</result>
+		</action>
+		<action name="change" class="com.wangxin.dang.actions.cart.CartListAction" method="change">
+			<result name="success" type="redirect">cartList</result>
+		</action>
+		
+		<action name="delete" class="com.wangxin.dang.actions.cart.CartListAction" method="delete">
+			<result name="success">/cart/cart_list.jsp</result>
+		</action>
+		<action name="recover" class="com.wangxin.dang.actions.cart.CartListAction" method="recover">
+			<result name="success">/cart/cart_list.jsp</result>
+		</action>
+	</package>
+</struts>

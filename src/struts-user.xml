@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="user" extends="dangDefault" namespace="/user">
+		<action name="reg">
+			<result name="success">/user/register_form.jsp</result>
+		</action>
+		
+		<!-- 登入 -->
+		<action name="login" class="com.wangxin.dang.actions.user.LoginAction">
+			<result name="success" type="redirect">/main/home.action</result>
+			<result name="fail">/user/login_form.jsp</result>
+			<result name="verify">/user/verify_form.jsp</result>
+		</action>
+		
+		<!-- 注册  -->
+		<action name="register" class="com.wangxin.dang.actions.user.RegisterAction" >
+			<interceptor-ref name="token" />
+			<interceptor-ref name="basicStack" />
+			<result name="success">/user/verify_form.jsp </result>
+			<result name="fail">/user/register_form.jsp</result>
+			<result name="invalid.token">
+				/user/verify_form.jsp
+			</result>
+		</action>
+		<!-- 显示验证码  -->
+		<action name="imageCode" class="com.wangxin.dang.actions.user.ImageCodeAction">
+			<param name="codeNumber">5</param>
+			<result name="success" type="stream">
+				<param name="inputName">input</param>
+				<param name="contentType">image/jpeg</param>
+			</result>
+		</action>
+		<!-- 检测验证码  -->
+		<action name="validCode" class="com.wangxin.dang.actions.user.VaildCodeAction">
+			<result name="success" type="json">
+				<param name="root">codeOk</param>
+			</result>
+		</action>
+		<!-- 检测邮箱是否被占用  -->
+		<action name="vaildEmail"  class="com.wangxin.dang.actions.user.VaildEmailAction">
+			<result name="success" type="json">
+				<param name="root"> emailOk</param>
+			</result>
+		</action>
+		<!-- 邮箱验证码验证 -->
+		<action name="veriftyEmailCode" class="com.wangxin.dang.actions.user.VerifyEmailCode">
+			<result name="success">/user/register_ok.jsp</result>
+			<result name="fail">
+				/user/verify_form.jsp
+			</result>
+		</action>
+	</package>
+	
+</struts>

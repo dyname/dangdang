@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	
+	<package name="main" extends="dangDefault" namespace="/main">
+		
+		<!-- 首页  -->
+		<action name="home">
+			<result name="success">/main/main.jsp</result>
+		</action>
+		
+		<!-- 最新上架  -->
+		<action name="findNewProduct" class="com.wangxin.dang.actions.product.NewProductAction">
+			<param name="topSize">8</param>
+			<result name="success">/main/new.jsp</result>
+		</action>
+		<!-- 热销图书  -->
+		<action name="findHotProduct" class="com.wangxin.dang.actions.product.HotProductAction">
+			<param name="hotSize">8</param>
+			<result name="success">/main/hot.jsp</result>
+		</action>
+		<!-- 所有图书的分类 -->
+		<action name="findAllCategory" class="com.wangxin.dang.actions.product.AllCategoryAction">
+			<result name="success">/main/category.jsp</result>
+		</action>
+		<!-- 部分图书信息 -->
+		<!-- 前一页 -->
+		<action name="ahead" class="com.wangxin.dang.actions.product.OnePageOfBookAction" method="ahead">
+			<param name="pageSize">5</param>
+			<result name="success">/main/book_list.jsp</result>
+		</action>
+		<!-- 下一页 -->
+		<action name="next" class="com.wangxin.dang.actions.product.OnePageOfBookAction" method="next">
+			<param name="pageSize">5</param>
+			<result name="success">/main/book_list.jsp</result>
+		</action>
+		<!-- 初始化状态 -->
+		<action name="onePageOfProduct" class="com.wangxin.dang.actions.product.OnePageOfBookAction">
+			<param name="pageSize">5</param>
+			<result name="success">/main/book_list.jsp</result>
+		</action>
+		<action name="onePageOfChildProduct" class="com.wangxin.dang.actions.product.OnePageOfBookChildAction">
+			<param name="pageSize">5</param>
+			<result name="success">/main/book_list.jsp</result>
+		</action>
+		
+		<!-- 退出 -->
+		<action name="exit" class="com.wangxin.dang.actions.main.ExitAction">
+			<result name="success">/user/login_form.jsp</result>
+		</action>
+	</package>
+	
+</struts>
